@@ -1078,6 +1078,7 @@ func (p *Vod) chunkUpload(filePath string, param model.UploadPartCommon) error {
 		close(chUploadPartRes)
 		close(errChan)
 		if v.Error.Code == -1 {
+			fmt.Printf("Error=%s, Code=%v, Message=%s\n", v.Error.Error, v.Error.Code, v.Error.Message)
 			reporter.report(p, p.buildDefaultUploadReport(param.SpaceName, time.Since(now).Microseconds(), v.Error.StatusCode, param.RetryTimes, v.Error.Logid, actionChunkUpload, param.TosHost, err.Error()))
 			return fmt.Errorf("Error=%s,Message is %s", v.Error.Error, v.Error.Message)
 		}

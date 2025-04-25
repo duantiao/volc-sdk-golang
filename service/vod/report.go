@@ -6,6 +6,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"net/url"
 	"os"
@@ -177,13 +178,13 @@ func (r *reporterClient) report(ins *Vod, req *report) {
 	}
 	defer func() {
 		if r := recover(); r != nil {
-			//fmt.Println("reporterClient report panic:", r)
+			fmt.Println("reporterClient report panic:", r)
 		}
 	}()
 	select {
 	case r.q <- &pair{ins, req}: // maybe panic
 	default:
-		//fmt.Println("queue full")
+		fmt.Println("queue full")
 	}
 }
 
